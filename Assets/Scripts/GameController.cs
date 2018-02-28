@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour 
 {
-	public GameObject hazard;
+	public GameObject[] hazards;
 	public Vector3 SpawnValues;
 	public Text scoreText;
 	public Text restartText;
@@ -41,12 +41,13 @@ public class GameController : MonoBehaviour
 
 	IEnumerator SpawnWaves ()
 	{
-		yield return new WaitForSeconds (startWait);
+        yield return new WaitForSeconds (startWait);
 		while (true)
 		{
 			for (int i = 0; i < hazardCount; i++) 
 			{
-				Vector3 spawnPosition = new Vector3 (Random.Range (-SpawnValues.x, SpawnValues.x), SpawnValues.y, SpawnValues.z);
+                GameObject hazard = hazards[Random.Range(0, hazards.Length)];
+                Vector3 spawnPosition = new Vector3 (Random.Range (-SpawnValues.x, SpawnValues.x), SpawnValues.y, SpawnValues.z);
 				Quaternion spawnRotation = Quaternion.identity;
 				Instantiate (hazard, spawnPosition, spawnRotation);
 				yield return new WaitForSeconds (spawnWait);
