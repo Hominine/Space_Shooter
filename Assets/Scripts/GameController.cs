@@ -9,13 +9,14 @@ public class GameController : MonoBehaviour
 	public GameObject[] hazards;
 	public Vector3 SpawnValues;
 	public Text scoreText;
-	public Text restartText;
+//	public Text restartText;
 	public Text gameOverText;
 	public int hazardCount;
 	private int score;
 	public float spawnWait;
 	public float startWait;
 	public float waveWait;
+    public GameObject restartButton;
 	private bool gameOver;
 	private bool restart;
 
@@ -24,20 +25,21 @@ public class GameController : MonoBehaviour
 	{
 		gameOver = false;
 		restart = false;
-		restartText.text = "";
-		gameOverText.text = "";
+//		restartText.text = "";
+        restartButton.SetActive(false);
+        gameOverText.text = "";
 		score = 0;
 		UpdateScore ();
 		StartCoroutine (SpawnWaves ());
 	}
 
-	void Update ()
-	{
-		if (Input.GetKeyDown (KeyCode.R)) 
-		{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-		}
-	}
+//	void Update ()
+//	{
+//		if (Input.GetKeyDown (KeyCode.R)) 
+//		{
+//			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+//		}
+//	}
 
 	IEnumerator SpawnWaves ()
 	{
@@ -55,7 +57,8 @@ public class GameController : MonoBehaviour
 			yield return new WaitForSeconds (waveWait);
 			if (gameOver) 
 			{
-				restartText.text = "Press 'R' to Restart";
+//				restartText.text = "Press 'R' to Restart";
+                restartButton.SetActive(true);
 				restart = true;
 				break;	
 			}
@@ -76,7 +79,12 @@ public class GameController : MonoBehaviour
 	public void GameOver ()
 	{
 		gameOverText.text = "Game Over";
-		gameOver = true;
+        gameOver = true;
 	}
+
+    public void RestartGame ()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
 
